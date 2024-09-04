@@ -1,0 +1,71 @@
+@if (isLoading) {
+  <div class="h-screen flex flex-wrap justify-center items-center">
+     <div class="loader "></div>
+ 
+ </div>
+ }
+ @else{
+<div class="p-3">
+  <div class="">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table
+        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+      >
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="ps-3 py-3">Product name</th>
+            <th scope="col" class="ps-3 py-3">Image</th>
+            <th scope="col" class="ps-3 py-3">Category</th>
+            <th scope="col" class="ps-3 py-3">Count</th>
+
+            <th scope="col" class="ps-3 py-3">Price</th>
+
+            <th scope="col" class="ps-3 py-3">Data</th>
+          </tr>
+        </thead>
+        @for ( item of allOrders ; track $index) {
+
+        <tbody>
+          @for ( order of item.cartItems ; track $index) {
+          <tr
+            class= " bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          >
+            <th
+              scope="row"
+              class="ps-3 py-4  font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              {{ order.product.title.slice(0,30)}}
+            </th>
+
+            <td class=" py-4">
+              <img [src]="order.product.imageCover" width="100px" />
+            </td>
+            <td class="ps-3 py-4">
+                {{ order.product.category.name }}
+
+            </td>
+           
+            <td class="ps-4 py-4">
+              {{ order.count }}
+            </td>
+            <td class="ps-4 py-4">
+                {{ order.price *order.count }}
+
+            </td>
+            <td class="ps-3 py-4">
+              <div class="">Name : {{ item.user.name }}</div>
+              <div class="">Phone : {{ item.shippingAddress.phone }}</div>
+              <div class="">City : {{ item.shippingAddress.city }}</div>
+              <div class="">Date : {{ item.createdAt }}</div>
+            </td>
+          </tr>
+          }
+        </tbody>
+        }
+      </table>
+    </div>
+  </div>
+</div>
+ }

@@ -1,0 +1,40 @@
+
+@if (isLoading) {
+  <div class="h-screen flex flex-wrap justify-center items-center">
+     <div class="loader "></div>
+ 
+ </div>
+ }
+ @else {
+<div class="container mx-auto">
+<div class=" flex sm:flex-col md:flex-row  flex-wrap gap-y-4 gap-x-6 mx-auto justify-center mt-10">
+
+    
+    @for (item of allCategory ; track $index) {
+
+    <div class=" category  w-full md:w-4/12 lg:w-3/12 p-3 rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
+  <div (click)="getAllSubCat(item._id)" class="relative h-main  overflow-hidden bg-cover bg-no-repeat position-relative">
+    <img
+    
+      class="rounded-t-lg"
+      [src]="item.image"    />
+  </div>
+  <div class="position-absolute  bottom-0 p-6 text-center ">
+
+    <h3 class="text-main  text-3xl">{{ item.name }}</h3>
+
+  </div>
+</div>
+}
+</div>
+<div class="flex flex-wrap py-8">
+  @for (subCat of mySubCategory ; track $index) {
+    <div class="w-6/12 md:w-4/12 lg:w-3/12 p-3">
+    
+      <p class="text-center text-xl font-semibold subsategory py-3">{{subCat.name}}</p>
+    </div>
+  }
+</div>
+</div>  
+ }
+

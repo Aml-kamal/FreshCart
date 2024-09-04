@@ -1,0 +1,75 @@
+@if (isLoading) {
+  <div class="h-screen flex flex-wrap justify-center items-center">
+     <div class="loader "></div>
+ 
+ </div>
+ }
+ @else{
+  @if (myCart.numOfCartItems!==0) {
+    <div class="w-9/12 mx-auto bg-slate-100 p-9 rounded-lg">
+      <div class="flex justify-between">
+       <h2 class="  text-3xl  ">
+         Shop Cart
+             </h2>
+             <button (click)="clearAllCart()"  type="button" class="text-red-500 px-3 py-2 rounded-lg border border-2 border-red-500 hover:bg-red-500 hover:text-white">Clear Cart
+           
+             </button>
+     
+      </div>
+         <p class="text-main text-xl">     
+            Total Price : {{ myCart?.data?.totalCartPrice|currency }} 
+     
+         </p>
+       
+         @for (product of myCart?.data?.products; track $index) {
+         <div class="flex items-center justify-between w-3/4 mx-auto">
+           <div class="w-3/4 flex items-center pt-3">
+             <img class="w-52" [src]="product.product.imageCover" />
+             <div class="flex flex-col justify-between ps-3">
+               <h4 class="text-xl pb-2">{{ product.product.title }}</h4>
+               <span>Price : {{ product.price |currency }}</span>
+               <i
+                 (click)="removeProduct(product.product._id)"
+                 class="fa-solid fa-trash text-red-700 my-4 cursor-pointer"
+               ></i>
+             </div>
+           </div>
+       
+           <div class="w-1/4 flex items-center gap-3">
+             <i
+               (click)="
+                 updateOneProduct(
+                   (product.count = product.count + 1),
+                   product.product._id
+                 )
+               "
+               class="fa-solid fa-square-plus text-main cursor-pointer"
+             ></i>
+             <span>{{ product.count }}</span>
+             <i
+               (click)="
+                 updateOneProduct(
+                   (product.count = product.count - 1),
+                   product.product._id
+                 )
+               "
+               class="fa-solid fa-square-minus text-main cursor-pointer"
+             ></i>
+           </div>
+         </div>
+     
+         }
+         <button
+         [routerLink]="['/reqOrder',cartId]"
+         class="block ms-auto flex bg-main select-none rounded-lg mt-4 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white transition-all hover:scale-105 focus:scale-105 focus:opacity-[0.85] active:scale-100 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none "
+         type="button"
+       >
+         Order
+       </button>
+       </div>
+       
+   }@else {
+   <h3 class="text-main flex items-center justify-center  text-7xl  bg-slate-100 p-9 rounded-lg container mx-auto min-h-screen">Cart is empty</h3>
+  } 
+ }
+

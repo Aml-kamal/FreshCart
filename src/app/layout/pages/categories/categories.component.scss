@@ -1,0 +1,12 @@
+.h-main img{
+    height: 300px;
+    object-fit: cover;
+    width: 100%;
+   
+}
+.category:hover{
+    box-shadow: 1px 1px 10px #4fa74f;
+}
+.category {
+    transition: all .5s;
+}

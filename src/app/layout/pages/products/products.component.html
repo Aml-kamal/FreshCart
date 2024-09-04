@@ -1,0 +1,81 @@
+
+@if (isLoading) {
+  <div class="h-screen flex flex-wrap justify-center items-center">
+     <div class="loader "></div>
+ 
+ </div>
+ }
+ @else {
+<div class="my-5 container mx-auto">
+<input type="search" [(ngModel)]="inSearch" placeholder="Search Product Name"  class="w-1/2 flex my-7 mx-auto rounded">
+
+
+
+
+<div  class="flex flex-wrap ">
+
+
+    @for(item of allProducts|search: inSearch;track $index){
+        <div  class="product cursor-pointer relative flex w-6/12 md:w-4/12 lg:w-2/12 p-3 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+         <div [routerLink]="['/productDetails',item._id]">
+            <div class="relative mx-4 mt-4 h-96 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700">
+           
+                <img class="h-full w-full object-cover" [src]="item.imageCover" alt="product image" />
+            
+          </div>
+          
+            <div class=" px-6">
+                <div class="mb-2">
+                    
+                        <p class="block font-sans text-base font-medium leading-relaxed antialiased text-main ">{{item.category.name}}</p>
+
+                    
+                </div>
+             
+                <p class="block font-sans text-base font-medium leading-relaxed text-blue-gray-900 antialiased">{{item.title}}</p>
+
+             
+             
+               
+            </div>
+            <div class="p-6">
+                <div class="mb-2 flex items-center justify-between">
+                  <p class="block font-sans text-base font-medium leading-relaxed text-blue-gray-900 antialiased">
+                    {{item.price |currency }}
+                  </p>
+                  <p class="block font-sans text-base font-medium leading-relaxed text-blue-gray-900 antialiased">
+                   <i class="fa-solid fa-star bg-star"></i>
+                    {{item.ratingsAverage}}
+                  </p>
+                </div>
+            </div>
+         </div>
+        @if (wishId&&wishId.includes(item._id)) {
+                  <i (click)="removeFromWishList(item._id)" class="fa-solid fa-heart text-red-600 px-6 py-2 block ms-auto" ></i>
+
+        }@else {
+          <i (click)="addToWishList(item._id)" class="fa-solid fa-heart px-6 py-2 block ms-auto " ></i>
+
+        }
+          
+
+
+            <div class="p-6 pt-0 ">
+                <button (click)="addToCartBtn(item._id)"
+                  class="block  bg-main w-full select-none rounded-lg bg-blue-gray-900/10 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white transition-all hover:scale-105 focus:scale-105 focus:opacity-[0.85] active:scale-100 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  type="button"
+                >
+                  Add to Cart
+                </button>
+              </div>
+       
+    </div>
+
+    }
+    
+
+
+
+</div>
+</div>  
+ }
